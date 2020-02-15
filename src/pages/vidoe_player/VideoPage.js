@@ -14,7 +14,6 @@ class VideoPage extends Component {
         super(props);
         this.state = {
             fullScreenFlag: true, //当全屏时 控制下方的内容显示和隐藏
-            DetilUrl: getVideoDetilUrl(this.props.aid),//getVideoDetilUrl(this.props.aid),获取破解后的视频详情的url
             videoPlayerUrl: '',//视频播放链接
             VideoDetilData: {},//根据破解后的视频详情的url发送请求后获取的数据
             reply: "",
@@ -70,8 +69,8 @@ class VideoPage extends Component {
 
     //获取视频详情
     _getVideoDetilData = () => {
+        //getVideoDetilUrl(this.props.aid),获取破解后的视频详情的url
         let url = getVideoDetilUrl(this.props.aid);
-        console.log(url);
 
         fetch(url)
             .then(res => res.json())

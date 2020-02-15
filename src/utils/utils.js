@@ -1,5 +1,5 @@
 import md5 from "react-native-md5";
-import moment from 'moment';
+import * as encoding from 'text-encoding';
 
 //得到sign的方法
 get_sign = (params, key) => {
@@ -94,7 +94,6 @@ export const dataFormat = (data, mode = 0) => {
     if (mode === 0) {
         // formatData = moment(now - data).format('hh')
         formatData = now - data;
-        console.log(formatData);
     }
     return formatData;
 }
@@ -108,3 +107,5 @@ export const timeFormat = (time, num) => {
     s = s < 10 ? "0" + s : s;
     return (m + ':' + s)
 }
+
+

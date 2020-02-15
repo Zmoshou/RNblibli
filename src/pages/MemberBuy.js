@@ -150,9 +150,10 @@ export default class MovieListScreen extends Component {
             <TouchableHighlight
                 onPress={() => this.toWebView(url)}
                 underlayColor="#f3f3f3"
-                style={{ margin: 5, height: 300, flex: 1 }}>
+                style={index % 2 == 0 ? { margin: 5, height: 300, flex: 1 } : { margin: 5, height: 180, flex: 1 }}>
                 <Card cornerRadius={5} opacity={0.7} elevation={2} style={styles.itemBox}>
-                    <Text>{type}</Text>
+                    <View style={styles.topImg}></View>
+                    <View style={styles.decs}></View>
                 </Card>
             </TouchableHighlight>
         )
@@ -211,5 +212,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         alignItems: 'center'
+    },
+    topImg: {
+        flex: 3,
+        backgroundColor: 'red'
+    },
+    desc: {
+        flex: 2,
+        backgroundColor: 'green'
     }
 });

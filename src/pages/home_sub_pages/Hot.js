@@ -19,63 +19,68 @@ class Hot extends Component {
             refreshing: false,
             page: 0,
             footerFlag: 0,
-            endReached: false
         }
     }
 
     componentDidMount() {
-        this.setState({ refreshing: true });
-        this._getHotList();
+        this.setState({ refreshing: true })
+        this.dataInit();
     }
 
     //请求数据
-    _getHotList = () => {
-        const url = `https://app.bilibili.com/x/v2/show/popular/index?build=5470400&mobi_app=android&idx=${this.state.page * 10}`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                if (data.code === 0) {
-                    let myData = data.data
-                    this.setState((state) => {
-                        return {
-                            hotList: [...this.state.hotList, ...myData],
-                            topItem: data.config.top_items,
-                            refreshing: false,
-                            footerFlag: 0,
-                            endReached: true,
-                            page: state.page + 1
-                        }
-                    })
-                }
-            })
+    fetchData = (page) => {
+        return new Promise((resolve, react) => {
+            const url = `https://app.bilibili.com/x/v2/show/popular/index?build=5470400&mobi_app=android&idx=${this.state.page * 10}`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code === 0) {
+                        resolve(data);
+                    }
+                })
+        })
     }
+
+    dataInit = async () => {
+        let data = await this.fetchData();
+        let topItems = data.config.top_items;
+        let dataList = data.data;
+        console.warn(topItems);
+        this.setState({
+            refreshing: false,
+            topItem: topItems,
+            hotList: dataList,
+            page: 1
+        })
+    }
+
     //下拉刷新
-    _onRefresh = () => {
+    _onRefresh = async () => {
         this.setState((oldState) => {
             return {
                 refreshing: true,
                 page: 0,
                 footerFlag: 0,
-                hotList: [],
             }
-        }, this._getHotList)
+        }, this.dataInit)
     }
 
     //上拉加载
-    _onEndReached = () => {
-        if (this.state.endReached) {
-            if (this.state.page < 10) {
-                this.setState((oldState) => {
-                    return {
-                        endReached: false,
-                    }
-                }, this._getHotList)
-            }
-            else {
-                this.setState({
-                    footerFlag: 1
-                })
-            }
+    _onEndReached = async () => {
+        console.warn(this.state.page);
+        
+        if (this.state.page < 10) {
+            let data = await this.fetchData();
+            let dataList = data.data;
+            this.setState({
+                refreshing: false,
+                hotList: [...this.state.hotList, ...dataList],
+                page: this.state.page  + 1
+            })
+        } else {
+            this.setState({
+                footerFlag: 1
+            })
         }
     }
 
@@ -227,7 +232,7 @@ class Hot extends Component {
                     renderItem={this._renderHotList()}
                     keyExtractor={(item, index) => item.param + index}
                     onEndReached={this._onEndReached}
-                    onEndReachedThreshold={5}
+                    onEndReachedThreshold={2}
                     ListHeaderComponent={() => {
                         return (<View style={styles.topItemList}>
                             {this._renderTopItem()}

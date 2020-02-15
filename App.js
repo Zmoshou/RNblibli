@@ -27,7 +27,6 @@ const App: () => React$Node = () => {
                             <Thumbnail small source={require("./src/assets/images/bili_default_avatar.png")} />
                         </TouchableHighlight>
                     </Left>
-
                     <Body style={{ position: "absolute", left: "50%", marginLeft: -8, }}>
                         <Title style={{ fontSize: 16 }}>{selectedTab}</Title>
                     </Body>

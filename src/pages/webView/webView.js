@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ProgressBarAndroid, Text } from 'react-native'
 import { WebView } from "react-native-webview";
-import { Header, Button, Icon, Left, Right } from 'native-base';
+import { Header, Title, Thumbnail, Button, Icon, Left, Body, Right } from 'native-base';
 import { Actions } from 'react-native-router-flux'
 
 
@@ -21,7 +21,9 @@ class webView extends Component {
                             <Icon name='arrow-back' />
                         </Button>
                     </Left>
-
+                    <Body style={{position:'absolute',left:'20%'}}>
+                        <Title style={{ fontSize: 16 }}>{this.props.title}</Title>
+                    </Body>
                     <Right>
                         <Button transparent>
                         </Button>

@@ -145,9 +145,10 @@ class Live extends Component {
 
     _toDiantai = (item) => {
         console.warn(item.roomid);
-
-
         Actions.diantai({ 'roomId': item.roomid })
+    }
+    toWebView = (url, title) => {
+        Actions.webView({ 'webUrl': url, title: title })
     }
     //轮播图部分
     _renderBanner = () => {
@@ -164,9 +165,12 @@ class Live extends Component {
                 >
                     {this.state.bannerList.map((item, index) => {
                         return (
-                            <View key={index}>
+                            <TouchableHighlight
+                                onPress={() => this.toWebView(item.link, item.title)}
+                                underlayColor="#f3f3f3"
+                                key={index}>
                                 <Image style={{ width: '100%', height: BannerHeight }} source={{ uri: item.pic }} />
-                            </View>
+                            </TouchableHighlight>
                         );
                     })}
                 </Swiper>
