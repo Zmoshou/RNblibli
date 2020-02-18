@@ -41,8 +41,7 @@ class Diantai extends Component {
             (function(){
                window.postMessage(${JSON.stringify(data)},'*');
             })();
-            true;
-        `)
+            true;`)
     }
 
 
@@ -174,7 +173,7 @@ class Diantai extends Component {
                         startInLoadingState={true}
                         ref='webView'
                         // onLoadEnd={() => { this.refs.webView.postMessage('RN向H5发送的消息'); }}
-                        onLoadEnd={() => this.postMessageToH5('哈哈哈')}
+                        onLoadEnd={() => this.postMessageToH5(this.props.roomId)}
                         source={{ uri: "file:///android_asset/liveMessage.html" }} />
                 </View>
                 <Text style={styles.inputComment}>未登录,无法评论</Text>

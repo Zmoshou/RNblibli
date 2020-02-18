@@ -6,5 +6,7 @@
 
 ### react-native run-android
 
+![](https://s2.ax1x.com/2020/02/18/3FPlQI.md.png)
 
+![](https://s2.ax1x.com/2020/02/18/3FPlQI.png)
 
