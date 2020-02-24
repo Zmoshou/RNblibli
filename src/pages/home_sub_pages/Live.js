@@ -144,7 +144,6 @@ class Live extends Component {
     }
 
     _toDiantai = (item) => {
-        console.warn(item.roomid);
         Actions.diantai({ 'roomId': item.roomid })
     }
     toWebView = (url, title) => {

@@ -69,7 +69,8 @@ class SearchResult extends Component {
                 style={styles.dropdown} 
                 textStyle={styles.dropdownText} 
                 dropdownStyle={styles.dropdownStyle} 
-                onSelect={(index)=>{console.warn(index)}}/>
+                // onSelect={(index)=>{console.warn(index)}}
+                />
                 <ModalDropdown defaultIndex={0} defaultValue={this.state.selectValueB} options={this.state.dropdownList2} dropdownTextStyle={styles.dropdownTextStyle} dropdownTextHighlightStyle={styles.highlightStyle} style={styles.dropdown} textStyle={styles.dropdownText} dropdownStyle={styles.dropdownStyle} />
                 <ModalDropdown defaultIndex={0} defaultValue={this.state.selectValueC} options={this.state.dropdownList3} dropdownTextStyle={styles.dropdownTextStyle} dropdownTextHighlightStyle={styles.highlightStyle} style={styles.dropdown} textStyle={styles.dropdownText} dropdownStyle={styles.dropdownStyle} />
             </View>

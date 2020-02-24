@@ -48,7 +48,6 @@ class Recommended extends Component {
    }
    //去播放页面
    _toVideoPageOnPress(item) {
-      console.warn(item.param);
       Actions.VideoPage({ 'aid': item.param })
    }
 

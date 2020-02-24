@@ -125,11 +125,8 @@ class VideoComment extends Component {
     _replaceEmote = (obj, msg) => {
         let textMessage = msg
         Object.keys(obj).forEach(key => {
-            console.warn(obj[key].text);
             let rep = new RegExp(obj[key].text,'g')
-            textMessage = textMessage.replace(rep, 'X')
-            console.warn(textMessage);
-
+            textMessage = textMessage.replace(rep, '')
         })
         return textMessage
         //     //-------------------------

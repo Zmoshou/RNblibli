@@ -64,7 +64,6 @@ class VideoPage extends Component {
         }
 
         Actions.pop()
-        console.warn(123);
     }
 
     //获取视频详情

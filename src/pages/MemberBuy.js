@@ -42,6 +42,16 @@ export default class MovieListScreen extends Component {
             })
     }
 
+    toWebView = (url, title) => {
+        Actions.webView({ 'webUrl': url, title: title })
+    }
+
+    //下拉加载
+    _onEndReached = () => {
+        this.getData();        
+    }
+
+
     _renderTop = () => {
         return (
             <>
@@ -73,7 +83,7 @@ export default class MovieListScreen extends Component {
                     renderItem={({ item, i }) => {
                         return (
                             <TouchableHighlight
-                                onPress={() => this.toWebView(item.jumpUrlH5)}
+                                onPress={() => this.toWebView(item.jumpUrlH5, item.name)}
                                 underlayColor="#f3f3f3"
                                 key={i} style={{ flex: 1, alignItems: 'center' }}
                             >
@@ -106,7 +116,7 @@ export default class MovieListScreen extends Component {
     }
 
     _renderNotice = () => {
-        return <Text onPress={() => { this.toWebView(this.state.notice.jumpUrlH5) }} style={styles.notice}>{this.state.notice.title}</Text>
+        return <Text onPress={() => { this.toWebView(this.state.notice.jumpUrlH5, this.state.notice.title) }} style={styles.notice}>{this.state.notice.title}</Text>
     }
 
     _renderBanners = () => {
@@ -123,9 +133,10 @@ export default class MovieListScreen extends Component {
                     {this.state.banners.map((item, index) => {
                         const imgUrl = 'https:' + item.pic;
                         const url = item.url;
+                        const name = item.name;
                         return (
                             <TouchableHighlight
-                                onPress={() => this.toWebView(url)}
+                                onPress={() => this.toWebView(url, name)}
                                 underlayColor="#f3f3f3"
                                 key={index} >
                                 <Image style={{ width: '100%', height: 100 }} resizeMode={'stretch'} source={{ uri: imgUrl }} />
@@ -137,23 +148,41 @@ export default class MovieListScreen extends Component {
             </View >)
     }
 
-    toWebView = (url) => {
-        Actions.webView({ 'webUrl': url })
-    }
-
     //渲染列表
     _renderHotList = ({ item, index }) => {
-        const url = item.jumpUrls[0];
+        const url = item.jumpUrls[0]
+        const title = item.title;
+        let img = null;
         const type = item.type
+
+        switch (type) {
+            case 'mallitems':
+                img = `http:${item.imageUrls[0]}`
+                break;
+            case 'ugcs':
+                img = `http:${item.itemImg}`
+                break;
+            case 'ticketproject':
+                img = `http:${item.imageUrls[0]}`
+                break;
+            case 'picture':
+                img = item.imageUrls[0];
+                break;
+            default:
+                break;
+        }
 
         return (
             <TouchableHighlight
                 onPress={() => this.toWebView(url)}
                 underlayColor="#f3f3f3"
-                style={index % 2 == 0 ? { margin: 5, height: 300, flex: 1 } : { margin: 5, height: 180, flex: 1 }}>
+                style={{ margin: 5, height: 250,flex:1 }}>
                 <Card cornerRadius={5} opacity={0.7} elevation={2} style={styles.itemBox}>
-                    <View style={styles.topImg}></View>
-                    <View style={styles.decs}></View>
+                    {/* @550w_480h参数可调 */}
+                    <Image style={styles.showImg} resizeMode={'stretch'} source={{ uri: `${img}@800w_900h.png` }}></Image>
+                    <View style={styles.desc}>
+                        <Text style={styles.title} numberOfLines={2}>{title}</Text>
+                    </View>
                 </Card>
             </TouchableHighlight>
         )
@@ -161,14 +190,15 @@ export default class MovieListScreen extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, overflow: 'hidden', paddingHorizontal: 10 }} >
+            <View style={{ flex: 1, overflow: 'hidden' }} >
                 <FlatList
+                    style={{ paddingHorizontal: 10 }}
                     data={this.state.goodList}
                     numColumns={2}
                     renderItem={this._renderHotList}
                     keyExtractor={(item, index) => index}
                     onEndReached={this._onEndReached}
-                    onEndReachedThreshold={5}
+                    onEndReachedThreshold={1}
                     ListHeaderComponent={this._renderTop}
                     refreshControl={
                         <RefreshControl
@@ -213,12 +243,18 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center'
     },
-    topImg: {
-        flex: 3,
-        backgroundColor: 'red'
-    },
     desc: {
-        flex: 2,
-        backgroundColor: 'green'
+        height: '28%',
+        width: '100%',
+        padding: 8
+    },
+    showImg: {
+        height: '72%',
+        width: '100%'
+    },
+    title: {
+        fontSize: 16,
+        color: '#000',
+        fontWeight: '700'
     }
 });

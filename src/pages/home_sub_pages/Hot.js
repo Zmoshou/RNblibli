@@ -45,7 +45,6 @@ class Hot extends Component {
         let data = await this.fetchData();
         let topItems = data.config.top_items;
         let dataList = data.data;
-        console.warn(topItems);
         this.setState({
             refreshing: false,
             topItem: topItems,
@@ -66,9 +65,7 @@ class Hot extends Component {
     }
 
     //上拉加载
-    _onEndReached = async () => {
-        console.warn(this.state.page);
-        
+    _onEndReached = async () => {        
         if (this.state.page < 10) {
             let data = await this.fetchData();
             let dataList = data.data;

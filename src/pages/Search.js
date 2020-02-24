@@ -34,7 +34,6 @@ class Search extends Component {
             .then(res => res.json())
             .then(data => {
                 if (data.code === 0) {
-                    // console.warn(data.data);
                     this.setState({
                         hotSearchList: data.data.list
                     })
@@ -47,7 +46,6 @@ class Search extends Component {
             fetch('http://api.bilibili.cn/suggest?term=' + this.state.inputValue)
                 .then(res => res.json())
                 .then(data => {
-                    // console.warn(data);
                     this.setState({
                         suggestWordsList: data
                     })
@@ -65,7 +63,6 @@ class Search extends Component {
         fetch(`https://app.bilibili.com/x/v2/search?appkey=1d8b6e7d45233436&build=5370000&pn=${this.state.page}&ps=15&keyword=${this.state.inputValue}&order=${this.state.order}`)
             .then(res => res.json())
             .then(data => {
-                // console.warn(data.data.item);
                 if (data.code === 0) {
                     this.setState({
                         searchResultList: [...this.state.searchResultList, ...data.data.item],

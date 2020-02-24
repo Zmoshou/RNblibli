@@ -121,7 +121,6 @@ class VideoPlayer extends Component {
     }
     //
     _onBuffer = (data) => {
-        console.warn(data);
     }
 
     //视频加载成功后调用
@@ -150,7 +149,6 @@ class VideoPlayer extends Component {
     _onProgress = (data) => {
         if (this.state.sliderFlag) {
             let value = ((Math.ceil(data.currentTime) / this.state.duration) * 100)
-            // console.warn(data.currentTime);
             this.setState({
                 sliderValue: value,
                 currentTime: Math.ceil(data.currentTime)
@@ -160,8 +158,6 @@ class VideoPlayer extends Component {
     //滑动滑块时触发
     _onValueChange = (length) => {
         let current = this.state.duration * (length / 100)
-        // console.warn('current' + current);
-
         this.setState({
             sliderFlag: false,
             currentTime: Math.ceil(current)

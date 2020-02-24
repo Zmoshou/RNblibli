@@ -60,7 +60,7 @@ class Diantai extends Component {
     }
 
     videoError = () => {
-        console.warn('播放失败');
+        // console.warn('播放失败');
     }
 
     //视频加载成功后调用
@@ -78,7 +78,6 @@ class Diantai extends Component {
 
     //主要渲染
     render() {
-        // console.warn(this.state.playUrl)
         return (
             <View style={{ flex: 1 }}>
                 {/* 播放器 */}
