@@ -14,7 +14,7 @@
         "moment": "^2.24.0",
         "native-base": "^2.13.8",
         "react": "16.9.0",
-        "react-native": "0.61.5",
+        "react-native": "0.62.3",
         "react-native-md5": "^1.0.0",
         "react-native-modal-dropdown": "^0.7.0",
         "react-native-orientation": "^3.1.3",
